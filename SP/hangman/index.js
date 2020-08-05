@@ -19,7 +19,7 @@ while (running) {
 	const category = readlineSync.question(`Pick a wordlist (${wordlistsString()}): `).trim().toLowerCase();
 	const wordlist = wordlists.find(e => e == category.concat(".csv"));
 	if (!wordlist) continue;
-	const game = new WordCollection("./wordlists".concat(wordlist));
+	const game = new WordCollection("./wordlists/".concat(wordlist));
 
 	game.start(name);
 	while (!game.winner) {

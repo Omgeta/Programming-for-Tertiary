@@ -176,7 +176,7 @@ class WordCollection {
 
 		const currentWord = this.getCurrentWord();
 		// console.log(getHangman(currentWord.getFailedGuesses()));
-		if (this.getFailedGuesses() >= 8) {
+		if (currentWord.getFailedGuesses() >= 8) {
 			console.log("Oh no, you died of failing too many times! Try the next word.");
 			this.nextRound();
 		}
