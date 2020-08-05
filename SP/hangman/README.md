@@ -34,9 +34,9 @@ Hangman is a classic word game in which a computer randomly selects a word that 
 - The program is able to keep track of player’s scores (the scores and player info must be stored in an external file or database). 
 - Any other features advanced features ie no in basic requirements above. 
 
-### Please keep in mind that all these are advanced features. The main bulk of marks are allocated to the completion of a workable program that meets the minimum requirements.
+Please keep in mind that all these are advanced features. The main bulk of marks are allocated to the completion of a workable program that meets the minimum requirements.
 
-### **You should try to fulfil the minimum requirements before you attempt the advanced features**
+**You should try to fulfil the minimum requirements before you attempt the advanced features**
 
 # Comments
 
