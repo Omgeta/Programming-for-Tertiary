@@ -24,20 +24,20 @@ class WordCollection {
 		this.winner = null;
 	}
 
+	getPlayer() {
+		return this.player;
+	}
+
 	getWordList() {
 		return this.words;
 	}
 
-	getCurrentWord() {
-		return this.currentWord;
-	}
-
-	getLifelines() {
-		return this.lifelines;
-	}
-
 	getGameWords() {
 		return this.gameWords;
+	}
+
+	getCurrentWord() {
+		return this.currentWord;
 	}
 
 	getRounds() {
@@ -46,6 +46,10 @@ class WordCollection {
 
 	getScore() {
 		return this.score;
+	}
+
+	getLifelines() {
+		return this.lifelines;
 	}
 
 	generateRandomSet(n) {
@@ -66,6 +70,17 @@ class WordCollection {
 			this.updateHidden(char);
 		}
 	}
+	
+	unusedLifeline(lifeline) {
+		/* Check if lifeline is vailable */
+		return this.getLifelines().includes(lifeline);
+	};
+
+	notGuessed(char) {
+		/* Check if character has already been guessed */
+		const word = this.getCurrentWord();
+		return word.getAlphabet().includes(char);
+	};
 
 	useLifeline(input) {
 		/* Use lifeline and delete it from available lifelines */
@@ -82,6 +97,17 @@ class WordCollection {
 		}
 		const i = this.getLifelines().indexOf(input);
 		this.lifelines.splice(i, 1);
+	}
+
+	lifelineString() {
+		const lifelineDescriptions = {
+			1: "(1) Show all vowels",
+			2: "(2) Show definition of word",
+			3: "(3) Skip and get correct",
+		};
+
+		const result = this.getLifelines().map(x => lifelineDescriptions[x]);
+		return result.join(", ");
 	}
 
 	updateHidden(replacement) {
@@ -114,12 +140,13 @@ class WordCollection {
 	correctWord() {
 		/* Score points and go to next word */
 		this.score++;
-		this.nextRound();
+		this.nextWord();
 	}
 
-	nextRound() {
+	nextWord() {
 		/* Go to next word, or if at end of list then end game */
-		if (this.round < this.gameWords.length) {
+		const [ curr, last ] = this.getRounds()
+		if (curr < last) {
 			this.round++;
 			this.currentWord = this.gameWords[this.round - 1];
 		} else {
@@ -160,25 +187,25 @@ class WordCollection {
 
 	display() {
 		/* Graphically display current hangman, current player's string and letters left to guess */
-		const insertSpacesBetween = (string) => {
-			let result = "";
-			for (let i = 1; i < string; i += 2) {
-				result = string.slice(0, i) + " " + string.slice(i);
+		function insertSpacesBetween(string) {
+			let result = string.slice(); // Copy string
+			for (let i = 1; i < result.length; i += 2) {
+				result = result.slice(0, i) + " " + result.slice(i);
 			}
 			return result;
-		};
+		}
 
 		/*
-		const getHangman = (failedGuesses) => {
+		function getHangman(failedGuesses) {
 			// I am way too lazy to do ASCII art
-		};
+		}
 		*/
 
 		const currentWord = this.getCurrentWord();
 		// console.log(getHangman(currentWord.getFailedGuesses()));
 		if (currentWord.getFailedGuesses() >= 8) {
 			console.log("Oh no, you died of failing too many times! Try the next word.");
-			this.nextRound();
+			this.nextWord();
 		}
 		console.log(insertSpacesBetween(currentWord.getHidden()));
 		console.log(insertSpacesBetween(currentWord.getAlphabet()));
@@ -186,39 +213,19 @@ class WordCollection {
 
 	prompt() {
 		/* Prompt player for input and validate */
-		const isAlpha = (string) => {
+		function isAlpha(string) {
 			return string.match(/^[A-Za-z]+$/);
-		};
+		}
 
-		const isNumber = (string) => {
+		function isNumber(string) {
 			return string.match(/^[0-9]+$/);
-		};
-
-		const lifelineString = () => {
-			const lifelineDescriptions = {
-				1: "Show all vowels",
-				2: "Show definition of word",
-				3: "Skip and get correct",
-			};
-
-			const result = this.getLifelines().map(x => lifelineDescriptions[x]);
-			return result.join(", ");
-		};
-
-		const unusedLifeline = (lifeline) => {
-			return this.getLifelines().includes(lifeline);
-		};
-
-		const notGuessed = (char) => {
-			const word = this.getCurrentWord();
-			return word.getAlphabet().includes(char);
-		};
-
+		}
 
 		while (true) {
-			let input = readlineSync.question(`${this.name}'s guess (Enter 9 for lifelines or 0 to pass): `).trim().charAt(0);
+			let input = readlineSync.question(`${this.player}'s guess (Enter 9 for lifelines or 0 to pass): `).trim().charAt(0);
 			if (isAlpha(input)) {
-				if (notGuessed(input)) {
+				input = input.toUpperCase()
+				if (this.notGuessed(input)) {
 					return input;
 				} else {
 					console.log("Letter has already been guessed! Try again.");
@@ -228,9 +235,17 @@ class WordCollection {
 					return input;
 				} else if (input == "9") {
 					if (this.lifelines) {
-						input = readlineSync.question(`Use one of your lifelines (${lifelineString()})`).trim().charAt(0);
-						if (isNumber(input) && unusedLifeline(input)) {
-							return input;
+						input = readlineSync.question(`Use one of your lifelines (${this.lifelineString()})`).trim().charAt(0);
+						if (isNumber(input) && this.unusedLifeline(input)) {
+							if (input == "1") {
+								if (!this.getCurrentWord().hasAllVowels()) {
+									return input;
+								} else {
+									console.log("All vowels are already shown.");
+								}
+							} else {
+								return input;
+							}
 						} else {
 							console.log("Invalid integer input. Select one of the available lifelines.");
 						}
@@ -249,7 +264,7 @@ class WordCollection {
 	update(input) {
 		/* Handle player's action according to player input */
 		if (input == "0") {
-			this.nextRound();
+			this.nextWord();
 		} else if (["1", "2", "3"].includes(input)) {
 			this.useLifeline(input);
 		} else {
@@ -262,7 +277,7 @@ class WordCollection {
 
 	win() {
 		/* End screen */
-		console.log(`Results==========\nName:${this.getName()}\nScore:${this.score}/${this.getGameWords().length}`);
+		console.log(`Results==========\nName:${this.getPlayer()}\nScore:${this.score}/${this.getGameWords().length}`);
 		this.log(this.player, this.score);
 	}
 }
@@ -296,7 +311,7 @@ class Word {
 		return this.failedGuesses;
 	}
 
-	hiddenHasVowels() {
+	hasAllVowels() {
 		for (const char of this.word) {
 			if ("aeiou".includes(char) && !this.hidden.includes(char)) {
 				return false;

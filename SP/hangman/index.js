@@ -26,7 +26,6 @@ while (running) {
 		game.display();
 		const input = game.prompt();
 		game.update(input);
-		game.nextRound();
 	}
 	game.win();
 
