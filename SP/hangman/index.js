@@ -8,7 +8,7 @@ const fs = require("fs");
 const readlineSync = require("readline-sync");
 
 const { WordCollection } = require("./hangman.js");
-const wordlists = fs.readdirSync("./wordlists").filter(file => file.endsWith(".csv"));
+const wordlists = fs.readdirSync("./wordlists/").filter(file => file.endsWith(".csv"));
 function wordlistsString() {
 	return wordlists.map(e => e.split(".").slice(0, -1).join(".").toUpperCase()).join(", ");
 }

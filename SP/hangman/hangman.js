@@ -110,23 +110,26 @@ class WordCollection {
 		return result.join(", ");
 	}
 
-	updateHidden(replacement) {
+	updateHidden(char) {
 		/* Replace characters on player's string if they are also found on the word */
 		const word = this.getCurrentWord();
-		for (let i = 0; i < word.getWord().length; i++) {
-			if (word.getWord()[i] == replacement) {
-				word.hidden = word.hidden.slice(0, i) + replacement + word.hidden.slice(i + 1);
-				word.alphabet.replace(replacement, " ");
+		if (word.getWord().includes(char)) {
+			for (let i = 0; i < word.getWord().length; i++) {
+				if (word.getWord()[i] == char) {
+					word.hidden = word.hidden.slice(0, i) + char + word.hidden.slice(i + 1);
+					word.alphabet.replace(char, " ");
+				}
 			}
+			return console.log(`Good job! ${char} is one of the letters!`);
+		} else {
+			console.log(`Sorry. ${char} is not part of the word.`);
 		}
 	}
 
 	guess(char) {
 		/* Guess character of word */
 		const word = this.getCurrentWord();
-		if (word.getWord().includes(char)) {
-			this.updateHidden(char);
-		} else {
+		if (!this.updateHidden(char)) {
 			word.failedGuesses++;
 		}
 	}
@@ -177,7 +180,7 @@ class WordCollection {
 	}
 
 	start(name) {
-		/* Initialise variabes */
+		/* Initialise variables */
 		this.player = name;
 		this.gameWords = this.generateRandomSet(10);
 		this.round = 1;
@@ -284,8 +287,8 @@ class WordCollection {
 
 class Word {
 	constructor(word, definition) {
-		this.word = word;
-		this.definition = definition;
+		this.word = word.toUpperCase();
+		this.definition = definition.toUpperCase();
 		this.hidden = "_".repeat(this.word.length);
 		this.alphabet = alphabet;
 		this.failedGuesses = 0;
