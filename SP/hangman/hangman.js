@@ -20,7 +20,7 @@ class WordCollection {
 		this.currentWord;
 		this.round;
 		this.score;
-		this.lifelines = [1, 2, 3];
+		this.lifelines = ["1", "2", "3"];
 		this.winner = null;
 	}
 
@@ -74,13 +74,13 @@ class WordCollection {
 	useLifeline(input) {
 		/* Use lifeline and delete it from available lifelines */
 		switch (input) {
-			case 1:
+			case "1":
 				this.showAllVowels();
 				break;
-			case 2:
-				console.log(`Description of the word is ${this.getCurrentWord().getDefinition()}`);
+			case "2":
+				console.log(`Description of the word is: ${this.getCurrentWord().getDefinition()}`);
 				break;
-			case 3:
+			case "3":
 				this.correctWord();
 				break;
 		}
@@ -107,16 +107,19 @@ class WordCollection {
 	updateHidden(char) {
 		/* Replace characters on player's string if they are also found on the word */
 		const word = this.getCurrentWord();
+
+		word.alphabet = word.alphabet.replace(char, " ");
 		if (word.getWord().includes(char)) {
 			for (let i = 0; i < word.getWord().length; i++) {
 				if (word.getWord()[i] == char) {
 					word.hidden = word.hidden.slice(0, i) + char + word.hidden.slice(i + 1);
-					word.alphabet.replace(char, " ");
 				}
 			}
-			return console.log(`Good job! ${char} is one of the letters!`);
+			console.log(`Good job! ${char} is one of the letters!`);
+			return true;
 		} else {
 			console.log(`Sorry. ${char} is not part of the word.`);
+			return false;
 		}
 	}
 
@@ -198,20 +201,43 @@ class WordCollection {
 			return result;
 		}
 
-		/*
 		function getHangman(failedGuesses) {
 			// I am way too lazy to do ASCII art
+			return `Failed Guesses: ${failedGuesses}`;
 		}
-		*/
 
+		function displayRounds() {
+			const [ curr, last ] = this.getRounds();
+			console.log(`Round ${curr}/${last}`);
+		}
+
+		function displayHangman(word) {
+			const failedGuesses = word.getFailedGuesses();
+			console.log(getHangman(failedGuesses));
+		}
+
+		function displayHidden(word) {
+			const hidden = word.getHidden();
+			console.log(insertSpacesBetween(hidden));
+		}
+
+		function displayAlphabet(word) {
+			const alphabet = word.getAlphabet();
+			console.log(insertSpacesBetween(alphabet));
+		}
+
+		console.log("============================================================");
 		const currentWord = this.getCurrentWord();
-		// console.log(getHangman(currentWord.getFailedGuesses()));
+		displayRounds()
+		displayHangman(currentWord);
+		displayHidden(currentWord);
+		displayAlphabet(currentWord);
+		
 		if (currentWord.getFailedGuesses() >= 8) {
 			console.log("Oh no, you died of failing too many times! Try the next word.");
 			this.nextWord();
 		}
-		console.log(insertSpacesBetween(currentWord.getHidden()));
-		console.log(insertSpacesBetween(currentWord.getAlphabet()));
+		console.log("============================================================");
 	}
 
 	prompt() {
@@ -226,6 +252,7 @@ class WordCollection {
 
 		while (true) {
 			let input = readlineSync.question(`${this.player}'s guess (Enter 9 for lifelines or 0 to pass): `).trim().charAt(0);
+
 			if (isAlpha(input)) {
 				input = input.toUpperCase()
 				if (this.notGuessed(input)) {
