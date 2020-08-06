@@ -66,7 +66,7 @@ class WordCollection {
 
 	showAllVowels() {
 		/* Guess all correct vowels */
-		for (const char of "aieou") {
+		for (const char of "AEIOU") {
 			this.updateHidden(char);
 		}
 	}
@@ -109,6 +109,7 @@ class WordCollection {
 		const word = this.getCurrentWord();
 
 		word.alphabet = word.alphabet.replace(char, " ");
+		char = char.toUpperCase();
 		if (word.getWord().includes(char)) {
 			for (let i = 0; i < word.getWord().length; i++) {
 				if (word.getWord()[i] == char) {
@@ -163,7 +164,7 @@ class WordCollection {
 	log(newName, newScore) {
 		/* Log score to logs.csv */
 		const data = {};
-		for (const line of fs.readFileSync("log.csv").split("\n")) {
+		for (const line of fs.readFileSync("log.csv", "utf-8").split("\n")) {
 			const [ name, score ] = line.split(",");
 			data[name] = score;
 		}
@@ -174,9 +175,10 @@ class WordCollection {
 			data[newName] = newScore;
 		}
 
-		const r = "";
+		let r = "";
 		for (const name in data) {
-			r.concat(`${name},${data[name]}\n`);
+			console.log(name, data[name])
+			r = r.concat(`${name},${data[name]}\n`);
 		}
 
 		fs.writeFileSync("log.csv", r, "utf-8");
@@ -206,11 +208,6 @@ class WordCollection {
 			return `Failed Guesses: ${failedGuesses}`;
 		}
 
-		function displayRounds() {
-			const [ curr, last ] = this.getRounds();
-			console.log(`Round ${curr}/${last}`);
-		}
-
 		function displayHangman(word) {
 			const failedGuesses = word.getFailedGuesses();
 			console.log(getHangman(failedGuesses));
@@ -228,11 +225,13 @@ class WordCollection {
 
 		console.log("============================================================");
 		const currentWord = this.getCurrentWord();
-		displayRounds()
+		const [ curr, last ] = this.getRounds();
+		console.log(`Round ${curr}/${last}`);
+
 		displayHangman(currentWord);
 		displayHidden(currentWord);
 		displayAlphabet(currentWord);
-		
+
 		if (currentWord.getFailedGuesses() >= 8) {
 			console.log("Oh no, you died of failing too many times! Try the next word.");
 			this.nextWord();
@@ -254,7 +253,6 @@ class WordCollection {
 			let input = readlineSync.question(`${this.player}'s guess (Enter 9 for lifelines or 0 to pass): `).trim().charAt(0);
 
 			if (isAlpha(input)) {
-				input = input.toUpperCase()
 				if (this.notGuessed(input)) {
 					return input;
 				} else {
@@ -307,8 +305,11 @@ class WordCollection {
 
 	win() {
 		/* End screen */
-		console.log(`Results==========\nName:${this.getPlayer()}\nScore:${this.score}/${this.getGameWords().length}`);
-		this.log(this.player, this.score);
+		console.log("=============================\nResults\n=============================");
+		console.log(`Name:${this.getPlayer()}`);
+		console.log(`Score:${this.getScore()}/${this.getGameWords().length}`);
+
+		this.log(this.getPlayer(), this.getScore());
 	}
 }
 
@@ -342,8 +343,9 @@ class Word {
 	}
 
 	hasAllVowels() {
-		for (const char of this.word) {
-			if ("aeiou".includes(char) && !this.hidden.includes(char)) {
+		for (const char of "AEIOU") {
+			if (this.getWord().includes(char) && this.getAlphabet().includes(char)) {
+				console.log(char)
 				return false;
 			}
 		}
