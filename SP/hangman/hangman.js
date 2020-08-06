@@ -166,7 +166,7 @@ class WordCollection {
 		const data = {};
 		for (const line of fs.readFileSync("log.csv", "utf-8").split("\n")) {
 			const [ name, score ] = line.split(",");
-			data[name] = score;
+			if (name) data[name] = score;
 		}
 
 		if (newName in data) {
@@ -177,7 +177,6 @@ class WordCollection {
 
 		let r = "";
 		for (const name in data) {
-			console.log(name, data[name])
 			r = r.concat(`${name},${data[name]}\n`);
 		}
 
@@ -345,7 +344,6 @@ class Word {
 	hasAllVowels() {
 		for (const char of "AEIOU") {
 			if (this.getWord().includes(char) && this.getAlphabet().includes(char)) {
-				console.log(char)
 				return false;
 			}
 		}
