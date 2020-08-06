@@ -24,12 +24,12 @@ class WordCollection {
 		this.winner = null;
 	}
 
-	getPlayer() {
-		return this.player;
-	}
-
 	getWordList() {
 		return this.words;
+	}
+
+	getPlayer() {
+		return this.player;
 	}
 
 	getGameWords() {
@@ -54,7 +54,7 @@ class WordCollection {
 
 	generateRandomSet(n) {
 		/* Generate random array of n words from words array */
-		const fullSet = this.getWordList().slice();
+		const fullSet = this.getWordList().slice(); // Copy array
 		const randomSet = [];
 		for (let i = 0; i < n; i++) {
 			const j = Math.floor(Math.random() * fullSet.length);
@@ -70,17 +70,6 @@ class WordCollection {
 			this.updateHidden(char);
 		}
 	}
-	
-	unusedLifeline(lifeline) {
-		/* Check if lifeline is vailable */
-		return this.getLifelines().includes(lifeline);
-	};
-
-	notGuessed(char) {
-		/* Check if character has already been guessed */
-		const word = this.getCurrentWord();
-		return word.getAlphabet().includes(char);
-	};
 
 	useLifeline(input) {
 		/* Use lifeline and delete it from available lifelines */
@@ -110,6 +99,11 @@ class WordCollection {
 		return result.join(", ");
 	}
 
+	unusedLifeline(lifeline) {
+		/* Check if lifeline is vailable */
+		return this.getLifelines().includes(lifeline);
+	};
+
 	updateHidden(char) {
 		/* Replace characters on player's string if they are also found on the word */
 		const word = this.getCurrentWord();
@@ -133,6 +127,12 @@ class WordCollection {
 			word.failedGuesses++;
 		}
 	}
+
+	notGuessed(char) {
+		/* Check if character has already been guessed */
+		const word = this.getCurrentWord();
+		return word.getAlphabet().includes(char);
+	};
 
 	evaluate() {
 		/* Return true if player's string is the same as the actual word */
