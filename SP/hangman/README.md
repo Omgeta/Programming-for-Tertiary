@@ -1,6 +1,6 @@
 # Hangman SP
 
-Hangman project for Singapore Polytechnic CA3.
+Hangman project for Singapore Polytechnic CA2.
 
 Designed and implemented by @Omgeta in JavaScript.
 
