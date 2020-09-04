@@ -1,9 +1,9 @@
 class Queue:
     def __init__(self):
-        self.data = []
+        self.__data = []
 
     def isempty(self):
-        return (self.data == [])
+        return (self.__data == [])
 
     def enqueue(self, value):
         self.data.insert(0, value)
@@ -12,4 +12,4 @@ class Queue:
         return self.data.pop()
 
     def size(self):
-        return len(self.data)
+        return len(self.__data)

@@ -1,6 +1,6 @@
 class Node:
     def __init__(self, element):
-        self.data = element
+        self.__data = element
         self.next = None
 
     def islast(self):

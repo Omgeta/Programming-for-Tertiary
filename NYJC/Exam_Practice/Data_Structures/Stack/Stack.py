@@ -1,7 +1,7 @@
 class Stack:
     def __init__(self, size=30):
         self.size = size
-        self.data = [None] * self.size
+        self.__data = [None] * self.size
         self.head = 0
 
     def isempty(self):
@@ -11,7 +11,7 @@ class Stack:
         if self.head >= self.size:
             print("Error: stack capacity reached")
         else:
-            self.data[self.head] = value
+            self.__data[self.head] = value
             self.head += 1
 
     def pop(self):
@@ -19,6 +19,8 @@ class Stack:
             return None
         else:
             self.head -= 1
-            return self.data.pop(self.head)
+            value = self.__data[self.head]
+            self.__data[self.head] = None
+            return value
 
     
