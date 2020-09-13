@@ -1,7 +1,6 @@
 #Dependencies
-from pyfirmata import SERVO
+from pyfirmata import SERVO, Arduino, util
 import pyfirmata
-from pyfirmata import Arduino, util
 
 #Initialize Arduino Port
 port = 'COM3'
