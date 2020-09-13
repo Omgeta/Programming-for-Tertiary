@@ -26,16 +26,16 @@ def paddedLine(left, right, paddingLength):
 		raise Exception("Padding length cannot be less than length of left")
 	return str(left) + " "*(paddingLength - len(left)) + str(right)
 
-def wrappedMenu(title, data_set: dict, footers: list = [], paddingLength = 20, decorator="="):
+def wrappedMenu(title, data_set: dict, footers: list=[], paddingLength=20, decorator="="):
 	result = [None]
 	maximum = 0
 
-	for pair in data_set.items():
-		left, right = pair[0], pair[1]
+	for left, right in data_set.items():
 		line = paddedLine(left, right, paddingLength)
 		result.append(line)
 		if len(line) > maximum:
 			maximum = len(line)
+
 	for line in footers:
 		result.append(line)
 
