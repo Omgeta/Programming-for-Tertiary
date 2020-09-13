@@ -1,12 +1,11 @@
 #Dependencies
 from pyfirmata import SERVO, Arduino, util
-import pyfirmata
 
 #Initialize Arduino Port
 port = 'COM3'
 
 board = Arduino(port)
-iter = pyfirmata.util.Iterator(board)
+iter = util.Iterator(board)
 iter.start()
 
 red_led = board.get_pin('d:7:o')   # Red LED pin 7 on Arduino
