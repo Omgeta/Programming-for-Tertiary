@@ -10,13 +10,13 @@ class Node:
 
 class LinkedList:
     def __init__(self):
-        self.root = None
+        self.head = None
 
     def isempty(self):
-        return (self.root is None)
+        return (self.head is None)
 
     def get(self, index):
-        current = self.root
+        current = self.head
         j = 0
         while j < index and current is not None:
             current = current.next
@@ -25,7 +25,7 @@ class LinkedList:
         return current
 
     def insert(self, index, element):
-        previous, current = None, self.root
+        previous, current = None, self.head
         j = 0
         while j < index and current is not None:
             previous, current = current, current.next
@@ -35,14 +35,14 @@ class LinkedList:
         new_node.next = current
 
         if previous is None:
-            self.root = new_node
+            self.head = new_node
         else:
             previous.next = new_node
 
     def append(self, element):
         new_node = Node(element)
 
-        current = self.root
+        current = self.head
         if current is None:
             current = new_node
         else:
@@ -51,14 +51,14 @@ class LinkedList:
             current.next = new_node
 
     def delete(self, index):
-        previous, current = None, self.root
+        previous, current = None, self.head
         j = 0
         while j < index and current is not None:
             previous, current = current, current.next
             j += 1
         
         if previous is None:
-            self.root = current.next
+            self.head = current.next
         else:
             previous.next = current.next
 
