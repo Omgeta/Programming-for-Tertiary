@@ -9,5 +9,4 @@ def quick_sort(array):
             lte_pivot.append(array[i])
 
     lte_pivot, gt_pivot = quick_sort(lte_pivot), quick_sort(gt_pivot)
-
     return lte_pivot + [pivot] + gt_pivot
