@@ -6,10 +6,13 @@ class Queue:
         return (self.__data == [])
 
     def enqueue(self, value):
-        self.data.insert(0, value)
+        self.__data.insert(0, value)
 
     def dequeue(self):
-        return self.data.pop()
+        return self.__data.pop()
+
+    def peek(self):
+        return self.__data[-1]
 
     def size(self):
         return len(self.__data)

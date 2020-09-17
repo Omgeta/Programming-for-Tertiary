@@ -23,4 +23,12 @@ class Stack:
             self.__data[self.head] = None
             return value
 
+    def peek(self):
+        if self.isempty():
+            return None
+        else:
+            self.head -= 1
+            value = self.__data[self.head]
+            self.head += 1
+            return value
     
