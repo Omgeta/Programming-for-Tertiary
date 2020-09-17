@@ -2,7 +2,7 @@ def quick_sort(array):
     lte_pivot, gt_pivot = [], []
     pivot = array.pop()
 
-    for i in range(len(array)-1):
+    for i in range(len(array)):
         if array[i] > pivot:
             gt_pivot.append(array[i])
         else:
