@@ -67,7 +67,7 @@ class Node:
 
 
 
-class BinaryTree(self):
+class BinaryTree:
     def __init__(self):
         self.root = None
 
