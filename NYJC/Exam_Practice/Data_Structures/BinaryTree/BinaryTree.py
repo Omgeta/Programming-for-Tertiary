@@ -7,14 +7,14 @@ class Node:
 
     def find_min(self):
         current = self
-        while current.left is not None:
+        while current.left:
             current = current.left
         return current
 
     def remove(self):
         def relink_children(current, child):
-            if current.parent is not None:
-                if child is not None:
+            if current.parent:
+                if child:
                     child.parent = current.parent
                 if current.parent.left == current:
                     current.parent.left = child
@@ -72,7 +72,7 @@ class BinaryTree(self):
         self.root = None
 
     def getNode(self, key):
-        if self.root is not None:
+        if self.root:
             current = self.root
 
             while current.key != key:
@@ -94,7 +94,7 @@ class BinaryTree(self):
 
     def insert(self, key):
         new = Node(key)
-        if self.root is None:
+        if self.root:
             self.root = new
         else:
             current = self.root
