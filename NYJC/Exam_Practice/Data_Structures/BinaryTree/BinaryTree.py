@@ -32,6 +32,39 @@ class Node:
         else:
             relink_children(self, None)
 
+    def preorder(self):
+        res = []
+
+        res.append(self.key)
+        if self.left:
+            res.append(self.left.preorder())
+        if self.right:
+            res.append(self.right.preorder())
+
+        return res
+
+    def inorder(self):
+        res = []
+
+        if self.left:
+            res.append(self.left.inorder())
+        res.append(self.key)
+        if self.right:
+            res.append(self.right.inorder())
+
+        return res
+
+    def postorder(self):
+        res = []
+
+        if self.left:
+            res.append(self.left.postorder())
+        if self.right:
+            res.append(self.right.postorder())
+        res.append(self.key)
+
+        return res
+
 
 
 class BinaryTree(self):
