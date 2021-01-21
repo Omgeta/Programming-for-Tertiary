@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies!</title>
 </head>
+
 <body>
     <table>
         <tr>
@@ -14,12 +16,13 @@
             <th>Worldwide Gross</th>
         </tr>
         {% for movie in sortedMovies %}
-            <tr>
-                {% for value in movie.values() %}
-                    <td>{{value}}</td>
-                {% endfor %}
-            </tr>
+        <tr>
+            {% for value in movie.values() %}
+            <td>{{value}}</td>
+            {% endfor %}
+        </tr>
         {% endfor %}
     </table>
 </body>
+
 </html>

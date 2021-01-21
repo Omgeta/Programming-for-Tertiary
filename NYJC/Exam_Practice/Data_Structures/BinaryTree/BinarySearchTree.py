@@ -22,9 +22,9 @@ class Node:
                     current.parent.right = child
 
         if self.left and self.right:
-                successor = self.right.find_min()
-                self.key = successor.key
-                successor.remove()
+            successor = self.right.find_min()
+            self.key = successor.key
+            successor.remove()
         elif self.left:
             relink_children(self, self.left)
         elif self.right:
@@ -32,7 +32,7 @@ class Node:
         else:
             relink_children(self, None)
 
-    def preorder(self):
+    def preorder(self) -> list:
         res = []
 
         res.append(self.key)
@@ -43,7 +43,7 @@ class Node:
 
         return res
 
-    def inorder(self):
+    def inorder(self) -> list:
         res = []
 
         if self.left:
@@ -54,7 +54,7 @@ class Node:
 
         return res
 
-    def postorder(self):
+    def postorder(self) -> list:
         res = []
 
         if self.left:
@@ -64,7 +64,6 @@ class Node:
         res.append(self.key)
 
         return res
-
 
 
 class BinarySearchTree:
@@ -82,7 +81,7 @@ class BinarySearchTree:
                     current = current.right
                 else:
                     return None
-            
+
             return current
 
     def removeNode(self, key):

@@ -1,64 +1,58 @@
 class Node:
-    def __init__(self, element):
-        self.__data = element
-        self.next = None
-
-    def islast(self):
-        return (self.next is None)
-
+    def __init__(self, value=any, next: Node = None):
+        self.value = value
+        self.next = next
 
 
 class LinkedList:
     def __init__(self):
         self.head = None
 
-    def isempty(self):
+    def isempty(self) -> bool:
         return (self.head is None)
 
-    def get(self, index):
-        current = self.head
-        j = 0
-        while j < index and current is not None:
-            current = current.next
-            j += 1
-            
-        return current
-
-    def insert(self, index, element):
-        previous, current = None, self.head
-        j = 0
-        while j < index and current is not None:
-            previous, current = current, current.next
-            j += 1
-
-        new_node = Node(element)
-        new_node.next = current
-
-        if previous is None:
+    def add(self, value: any):
+        new_node = Node(value)
+        if self.head is None:
             self.head = new_node
         else:
-            previous.next = new_node
+            ptr = self.head
+            while ptr.next is not None:
+                ptr = ptr.next
+            ptr.next = new_node
 
-    def append(self, element):
-        new_node = Node(element)
-
-        current = self.head
-        if current is None:
-            current = new_node
-        else:
-            while current.next is not None:
-                current = current.next
-            current.next = new_node
-
-    def delete(self, index):
-        previous, current = None, self.head
+    def get(self, index: int) -> any:
+        ptr = self.head
         j = 0
-        while j < index and current is not None:
-            previous, current = current, current.next
+        while j < index and ptr is not None:
+            ptr = ptr.next
             j += 1
-        
-        if previous is None:
-            self.head = current.next
-        else:
-            previous.next = current.next
 
+        return ptr
+
+    def insert(self, index: int, value: any):
+        prevPtr, ptr = None, self.head
+        j = 0
+        while j < index and ptr is not None:
+            prevPtr, ptr = ptr, ptr.next
+            j += 1
+
+        new_node = Node(value)
+        new_node.next = ptr
+
+        if prevPtr is None:
+            self.head = new_node
+        else:
+            prevPtr.next = new_node
+
+    def delete(self, index: int):
+        prevPtr, ptr = None, self.head
+        j = 0
+        while j < index and ptr is not None:
+            prevPtr, ptr = ptr, ptr.next
+            j += 1
+
+        if prevPtr is None:
+            self.head = ptr.next
+        else:
+            prevPtr.next = ptr.next

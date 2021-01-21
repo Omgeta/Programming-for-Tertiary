@@ -1,4 +1,4 @@
-#Task 2.1
+# Task 2.1
 def parseMovieData(filename):
     with open(filename) as f:
         lines = [line.rstrip("\n").split(",") for line in f]
@@ -20,27 +20,26 @@ def parseMovieData(filename):
         return result
 
 
-#Task 2.2
+# Task 2.2
 def insertSort(inputarray: list, sortCriteria: str):
-    allCriteria = {"P": "Profitability", "A": "Audience score %", "G": "Worldwide Gross"}
+    allCriteria = {"P": "Profitability",
+                   "A": "Audience score %",
+                   "G": "Worldwide Gross"}
     if sortCriteria not in allCriteria.keys():
         print("Invalid sort critera, must be P, A or G")
     else:
         sortCriteria = allCriteria[sortCriteria]
 
         result = [inputarray[0]]
-        for i in range(len(inputarray)-1):
-            e = inputarray[i+1]
+        for i in range(1, len(inputarray)):
+            e = inputarray[i]
             if e[sortCriteria] < result[0][sortCriteria]:
                 result.insert(0, e)
             elif e[sortCriteria] >= result[i][sortCriteria]:
-                result.insert(i+1, e)
+                result.insert(i, e)
             else:
                 for j in range(i):
                     if result[j][sortCriteria] <= e[sortCriteria] < result[j+1][sortCriteria]:
-                        result.insert(j+1, e)
+                        result.insert(j, e)
                         break
         return result
-
-    
-    
