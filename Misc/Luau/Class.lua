@@ -6,8 +6,8 @@ function Object.new(param)
     local self = {}
     setmetatable(self, Object)
 
-    self._privateProperty = "hidden"
-    self.publicProperty = "visible"
+    self._privateProperty = "foo"
+    self.publicProperty = "bar"
     self._param = param
 
     return self
