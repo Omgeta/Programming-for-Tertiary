@@ -37,22 +37,38 @@ public class JavaVeryMocha {
 }
 ```
 
-From this, we can infer that the password (as well as the flag) are just the reversed ``data`` array converted to ASCII.
+Pythonized version for my fellow Java haters
+```py
+import sys
+
+data = [116, 104, 105, 115, 32, 105, 115, 32, 110, 111, 116, 32, 116, 104, 101, 32, 102, 108, 97, 103]
+
+inp = input("[+] Enter Passphrase => ")
+if len(inp) == len(data):
+   for inpchar, dataord in zip(inp, reversed(data)):
+      if inpchar != chr(dataord + 1):
+         sys.exit(0)
+   
+   print("The flag is CTFSG{" + inp + "}")
+   
+```
+
+From this, we can infer that the password (as well as the flag) are just the reversed ``data`` array with 1 added to each digit, converted to ASCII.
 
 # Solution
 
-All we need to do is to obtain the password by reversing the int array and converting it to a string.
+All we need to do is to obtain the password by reversing the int array and convert it to a string.
 
 ```py
 data = [116, 104, 105, 115, 32, 105, 115, 32, 110, 111, 116, 32, 116, 104, 101, 32, 102, 108, 97, 103]
 
-res = ""
+flag = ""
 for x in reversed(data):
-    res += char(x+1)
-print(res)
+    flag += char(x+1)
+print("CTFSG{"+ res + "}")
 ```
 
-And out we get the flag that looks nothing like a flag.
+And out we get the flag that looks nothing like a flag. Hooray.
 
 ```txt
 CTFSG{hbmg!fiu!upo!tj!tjiu}
