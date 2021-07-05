@@ -93,7 +93,7 @@ class BinarySearchTree:
 
     def insert(self, key):
         new = Node(key)
-        if self.root:
+        if not self.root:
             self.root = new
         else:
             current = self.root

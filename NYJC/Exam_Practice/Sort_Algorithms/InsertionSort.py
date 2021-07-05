@@ -9,6 +9,6 @@ def insertion_sort(array):
         else:
             for j in range(i):
                 if array[j] <= element < array[j+1]:
-                    array.insert(j, element)
+                    array.insert(j+1, element)
                     break
     return array
