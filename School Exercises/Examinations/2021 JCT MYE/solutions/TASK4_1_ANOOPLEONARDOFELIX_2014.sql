@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS School;
+DROP TABLE IF EXISTS Subject;
+CREATE TABLE IF NOT EXISTS School (
+	SchoolID INTEGER PRIMARY KEY,
+	Name TEXT,
+	"Zone" TEXT,
+	"Level" TEXT,
+	YearsOfStudy INTEGER
+);
+CREATE TABLE IF NOT EXISTS Subject (
+	SchoolID INTEGER,
+	Name TEXT,
+	PRIMARY KEY (SchoolID, Name),
+	FOREIGN KEY (SchoolID) REFERENCES School(SchoolID)
+);

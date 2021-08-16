@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Task 4.4 - Result</title>
+	<meta charset="UTF-8">
+<html>
+</head>
+	{% if subjects == [] %}
+	<p>Invalid School. Try again</p>
+	{% else %}
+	<p><b>{{name}}</b></p>
+	<p>{{zone}}</p>
+	<ul>
+	{% for subj in subjects %}
+		<li>{{subj}}</li>
+	{% endfor %}
+	</ul>
+	{% endif %}
+<body>
+</body>
