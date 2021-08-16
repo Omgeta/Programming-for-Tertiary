@@ -1,4 +1,4 @@
-# NYJC JC1 Promotional Practical Examination 2020
+# 2020 JC1 EOY P2
 
 My proposed solutions for the practical exam (without choking during the exam).
   
@@ -7,9 +7,7 @@ My proposed solutions for the practical exam (without choking during the exam).
 
 ### Task 1
 
-- Random library
-
-- HashTable Data Structure
+- Hash Tables
 
 - OOP
 
