@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2.3 - Index</title>
+</head>
+<body>
+    {% if err %}
+    <p><b>{{err}}</b></p>
+    {% endif %}
+    <form action="/result" method="POST">
+        <p>Choose the criteria to sort the tracks by entering an appropriate letter.</p>
+        <p>Sort by Danceability: enter 'D'</p>
+        <p>Sort by Energy: enter 'E'</p>
+        <p>Sort by Valence: enter 'V'</p>
+        <input type="text" name="criteria" value="">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

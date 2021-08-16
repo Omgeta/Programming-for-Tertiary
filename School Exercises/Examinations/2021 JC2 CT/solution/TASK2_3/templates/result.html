@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2.3 - Results</title>
+</head>
+<body>
+    <table>
+        <thead>
+            {% for header in data[0].keys() %}
+            <th>{{ header }}</th>
+            {% endfor %}
+        </thead>
+        <tbody>
+            {% for record in data %}
+            <tr>
+                {% for value in record.values() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
