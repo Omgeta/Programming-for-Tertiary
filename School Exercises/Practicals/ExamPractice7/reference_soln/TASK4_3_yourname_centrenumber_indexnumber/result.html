@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title>Task 4.3</title>
+	</head>
+	<body>
+	{% if data is none %}
+	<p>Invalid search criteria, enter 'True' or 'False' only</p>
+	{% else %}
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Date of Employment</th>
+			<th>Service Status</th>
+		</tr>
+		{% for rec in data %}
+		<tr>
+			<td>{{ rec['Employee_name'] }}</td>
+			<td>{{ rec['Job_type'] }}</td>
+			<td>{{ rec['Date_of_employment'] }}</td>
+			<td>{{ rec['Service_status'] }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+	<p><a href="/">Go back</a></p>
+	</body>
+</html>
