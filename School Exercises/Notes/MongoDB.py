@@ -15,4 +15,6 @@ coll.find_one({"Name": "Test"})
 coll.find({"Age": 1})
 coll.find({})
 
+coll.update_one({"Name": "Test"}, {"$set": {"Name": "Test2"}})
+
 coll.delete_one({"Name": "Test"})
