@@ -1,11 +1,16 @@
 # Author: Omgeta
-# Description: Task 4.2 Python File
-# Date: 23/9/2021
+# Description: Task 4.3 Python Flask file
+# Date: 24/9/2021
 # Version: 1.0
-import csv
-import sqlite3
+
+# Dependencies
+from flask import Flask
+from flask import redirect, render_template
 from datetime import datetime
 from string import punctuation
+import csv
+
+# Classes
 
 
 class Person:
@@ -69,28 +74,11 @@ class Student(Person):
         return False
 
 
-# Databasing
-
-
-def get_conn():
-    conn = sqlite3.connect("school.db")
-    return conn
-
-
-def init_db():
-    conn = get_conn()
-    cur = conn.cursor()
-    with open("./TASK4_1.sql", "r") as f:
-        script = f.read()
-    cur.executescript(script)
-    conn.commit()
-    conn.close()
-
-
-def build_db():
-    conn = get_conn()
-    cur = conn.cursor()
-    with open("../people.txt", "r") as f:
+# Functions
+def get_people():
+    """Get list of people from the txt file"""
+    people = []
+    with open("../../people.txt", "r") as f:
         fieldnames = ["full_name", "date_of_birth", "type"]
         reader = csv.DictReader(f, fieldnames=fieldnames)
 
@@ -102,19 +90,18 @@ def build_db():
         for row in reader:
             RowClass = TYPE_TO_CLASS[row["type"]]
             row_person = RowClass(row["full_name"], row["date_of_birth"])
+            people.append(
+                (row_person.full_name, row_person.screen_name(), row["type"]))
 
-            cur.execute(
-                """
-                INSERT INTO People (FullName, DateOfBirth, ScreenName, IsAdult)
-                VALUES (?, ?, ?, ?);
-                """,
-                (row_person.full_name, row_person.date_of_birth,
-                 row_person.screen_name(), row_person.is_adult())
-            )
-
-    conn.commit()
-    conn.close()
+    return people
 
 
-init_db()
-build_db()
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    return render_template("index.html", people=get_people())
+
+
+app.run()

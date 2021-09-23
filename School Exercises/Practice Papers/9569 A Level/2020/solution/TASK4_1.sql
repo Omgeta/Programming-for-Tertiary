@@ -1,9 +1,8 @@
 DROP TABLE IF EXISTS People;
 CREATE TABLE IF NOT EXISTS People(
-    PersonID INTEGER AUTOINCREMENT,
+    PersonID INTEGER PRIMARY KEY AUTOINCREMENT,
     FullName TEXT,
     DateOfBirth TEXT,
     ScreenName TEXT,
-    IsAdult INTEGER,
-    PRIMARY KEY (PersonID)
+    IsAdult INTEGER
 );
