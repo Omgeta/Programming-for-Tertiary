@@ -2,6 +2,7 @@ from typing import List, Dict
 import csv
 import sqlite3
 
+
 def read_csv(filepath: str) -> List[Dict]:
     """
     Read the contents of a CSV file
@@ -18,16 +19,18 @@ def read_csv(filepath: str) -> List[Dict]:
         result = [row for row in reader]
     return result
 
+
 def get_conn():
     """
     Returns database connection to weather.db
-    
+
     Returns:
         con - DB Connection Object
     """
     conn = sqlite3.connect("weather.db")
     conn.row_factory = sqlite3.Row
     return conn
+
 
 def init_db():
     """
@@ -36,12 +39,13 @@ def init_db():
     conn = get_conn()
     cur = conn.cursor()
 
-    with open("./TASK3_1_ANOOPLEONARDOFELIX.sql") as f:
+    with open("./TASK3_1.sql") as f:
         script = f.read()
     cur.executescript(script)
-    
+
     conn.commit()
     conn.close()
+
 
 def build_db():
     """
@@ -60,7 +64,7 @@ def build_db():
         total_rainfall = row["total_rainfall"]
         mean_rh = row["mean_rh"]
         mean_temp = row["mean_temp"]
-        
+
         cur.execute(
             """
             INSERT INTO Temperature (year_month, "year", "month", temperature) VALUES (?, ?, ?, ?);
