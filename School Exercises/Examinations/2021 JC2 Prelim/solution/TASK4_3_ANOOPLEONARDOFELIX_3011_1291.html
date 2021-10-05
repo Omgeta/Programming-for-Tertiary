@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://127.0.0.1:5000/ -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Task 4.3</title>
+</head>
+<body>
+	<h3>Available Books</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Book ID</th>
+				<th>Book Title</th>
+				<th>Price</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr>
+				<td>1</td>
+				<td>Northanger Abbey</td>
+				<td>13.99</td>
+			</tr>
+
+			<tr>
+				<td>2</td>
+				<td>War and Peace</td>
+				<td>17.48</td>
+			</tr>
+
+			<tr>
+				<td>3</td>
+				<td>Computer Programs</td>
+				<td>20.99</td>
+			</tr>
+
+			<tr>
+				<td>4</td>
+				<td>Data Science</td>
+				<td>14.99</td>
+			</tr>
+
+		</tbody>
+	</table>
+	<br>
+	<form action="http://127.0.0.1:5000/" method="POST">
+		<label>Add to Cart:</label>
+		<input type="text" name="bookid" value="">
+		<input type="submit" value="Submit">
+	</form>
+
+	<p>Cart</p>
+	<ul>
+
+		<li>Northanger Abbey, 13.99, Physical, 178g</li>
+
+		<li>War and Peace, 17.48, Physical, 432g</li>
+
+		<li>Computer Programs, 20.99, Virtual, https:/mybookstore.com/dJHtFy</li>
+
+		<li>Data Science, 14.99, Virtual, https://mybookstore.com/fJynJk</li>
+
+	</ul>
+	<label>Total Price: 67.45</label>
+
+
+</body>
+</html>

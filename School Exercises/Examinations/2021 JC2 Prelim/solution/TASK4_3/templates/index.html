@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Task 4.3</title>
+</head>
+<body>
+    <h3>Available Books</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Book Title</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bookid, book in books %}
+            <tr>
+                <td>{{ bookid }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.price/100 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <form action="/" method="POST">
+        <label>Add to Cart:</label>
+        <input type="text" name="bookid" value="">
+        <input type="submit" value="Submit">
+    </form>
+
+    <p>Cart</p>
+    <ul>
+        {% for book in cart.items %}
+        <li>{{ book.title }}, {{ book.price/100 }}, {{ get_type(book).title() }}, {{ book.weight_g() if get_type(book)
+            == "physical" else book.download_link}}</li>
+        {% endfor %}
+    </ul>
+    <label>Total Price: {{ cart.total_price()/100 }}</label>
+
+</body>
+</html>
