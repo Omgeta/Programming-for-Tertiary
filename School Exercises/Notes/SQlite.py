@@ -6,10 +6,10 @@ cur = conn.cursor()
 cur.execute(
     """
     CREATE TABLE Example(
-        id INTEGER PRIMARY KEY
-        name TEXT
-        age INTEGER
-        salary REAL
+        id INTEGER PRIMARY KEY,
+        name TEXT,
+        age INTEGER,
+        salary REAL,
         FOREIGN KEY (id) REFERENCES Table(id)
     )
     """
