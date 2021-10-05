@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Registration (
 );
 CREATE TABLE IF NOT EXISTS Arts (
     StudentID INTEGER,
-    Performance TEXT CHECK(Performance in ("True", "False")),
+    Performance TEXT CHECK(Performance in ('True', 'False')),
     PRIMARY KEY (StudentID),
     FOREIGN KEY (StudentID) REFERENCES Registration(StudentID)
 );
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Cultural (
 );
 CREATE TABLE IF NOT EXISTS Sports (
     StudentID INTEGER,
-    Contact TEXT CHECK(Contact in ("NC", "C")),
+    Contact TEXT CHECK(Contact in ('NC', 'C')),
     Cost REAL,
     PRIMARY KEY (StudentID),
     FOREIGN KEY (StudentID) REFERENCES Registration(StudentID)

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!--TABLES-->
+    <table>
+        <thead>
+            <tr>
+                <th>Header1</th>
+                <th>Header2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Item1.1</td>
+                <td>Item1.2</td>
+            </tr>
+            <tr>
+                <td>Item2.1</td>
+                <td>Item2.2</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--LISTS-->
+    <ul>
+        <li>Random</li>
+        <li>Order</li>
+    </ul>
+    <ol>
+        <li>Numerical</li>
+        <li>Order</li>
+    </ol>
+
+    <!--FORMS-->
+    <form method="POST" action="/query">
+        <!--TEXT-->
+        <label>Query:</label>
+        <input type="text" name="status" value="">
+
+        <!--RADIO-->
+        <label>Choose one</label>
+        <input type="radio" name="choices" value="Choice 1"><label>Choice 1</label>
+        <input type="radio" name="choices" value="Choice 2"><label>Choice 2</label>
+
+        <!--CHECKBOX-->
+        <label>Choose any</label>
+        <input type="checkbox" name="boxes1" value="A"><label>A</label>
+        <input type="checkbox" name="boxes2" value="B"><label>B</label>
+
+        <!--DROPDOWN-->
+        <select name="selection">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+        </select>
+
+        <!--SUBMIT-->
+        <input type="submit" value="Submit">
+    </form>
+
+    <!--IMAGE FORM-->
+    <form method="POST" enctype="multipart/form-data" action="/query">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+
+    <!--IMAGE DISPLAY-->
+    {% if filename %}
+    <img src="static/uploads/{{ filename }}">
+    {% endif %}
+
+</body>
+</html>
