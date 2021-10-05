@@ -1,20 +1,23 @@
 class HashTable:
-    def __init__(self, size: int):
+    """ HashTable implementation for storing key-value pairs """
+
+    def __init__(self, size: int = 32):
+        """ Constructs a static array of specified size to hold elements """
         self.size = size
-        self.__data = [None] * self.size
+        self.data = [None] * self.size
 
-    def __hash(self, string):
-        index = hash(string)
-        if index < 0:
-            index = index % (self.size // 2)
-        else:
-            index = index % (self.size // 2) + (self.size // 2)
-        return index
+    def __hash(self, key: str) -> int:
+        """ Hash function for the table """
+        # any hash function will do
+        hash_str = hash(key) % self.size
+        return hash_str
 
-    def add(self, key, value):
-        index = self.__hash(key)
-        self.__data[index] = value
+    def set(self, key: str, value: any):
+        """ Sets value to the specified key in the HashTable """
+        hash_str = self.__hash(key)
+        self.data[hash_str] = value
 
-    def get(self, key):
-        index = self.__hash(key)
-        return self.__data[index]
+    def get(self, key: str) -> any:
+        """ Gets value from the key in the HashTable """
+        hash_str = self.__hash(key)
+        return self.data[hash_str]
