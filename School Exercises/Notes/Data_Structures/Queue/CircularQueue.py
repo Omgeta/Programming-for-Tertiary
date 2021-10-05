@@ -21,10 +21,7 @@ class CircularQueue:
             value = self.__data[self.head]
             self.__data[self.head] = None
 
-            if self.head == 0:
-                self.head = self.size - 1
-            else:
-                self.head -= 1
+            self.head = (self.head - 1) % self.size
 
             if self.__data[self.head] is None:
                 self.head = None
